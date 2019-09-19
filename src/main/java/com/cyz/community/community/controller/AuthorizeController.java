@@ -2,6 +2,8 @@ package com.cyz.community.community.controller;
 
 import com.cyz.community.community.dto.AccessTokenDTO;
 import com.cyz.community.community.dto.GithubUser;
+import com.cyz.community.community.mapper.UserMapper;
+import com.cyz.community.community.model.User;
 import com.cyz.community.community.provider.GitHubProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 @Controller
 public class AuthorizeController {
@@ -21,6 +24,8 @@ public class AuthorizeController {
     private String clientSecret;
     @Value("${github.redirect.uri}")
     private String redirectUri;
+    @Autowired
+    private UserMapper userMapper;
 
     @GetMapping("callback")
     public String callback(@RequestParam(name = "code") String code,
@@ -36,7 +41,13 @@ public class AuthorizeController {
         GithubUser githubUser = gitHubProvider.getUser(accessToken);
         System.out.println(githubUser.toString());
         if(githubUser !=null){
-
+            User user = new User();
+            user.setToken(UUID.randomUUID().toString());
+            user.setName(githubUser.getLogin());
+            user.setAccountId(String.valueOf(githubUser.getId()));
+            user.setGmtCreate(System.currentTimeMillis());
+            user.setGmtModified(user.getGmtCreate());
+            userMapper.insert(user);
             //登录成功，写Cookie和session
             request.getSession().setAttribute("user",githubUser);
             return "redirect:/";

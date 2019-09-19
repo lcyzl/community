@@ -4,9 +4,18 @@ public class GithubUser {
     private String name;
     private  Long id;
     private String bio;
+    private String login;
 
     public String getName() {
         return name;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public void setName(String name) {
@@ -35,6 +44,7 @@ public class GithubUser {
                 "name='" + name + '\'' +
                 ", id=" + id +
                 ", bio='" + bio + '\'' +
+                ", login='" + login + '\'' +
                 '}';
     }
 }

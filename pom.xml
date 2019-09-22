@@ -66,6 +66,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.10</version>
 		</dependency>
+		<!--不用重启也能刷新页面-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 
 	<build>

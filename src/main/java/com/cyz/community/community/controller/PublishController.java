@@ -28,13 +28,14 @@ public class PublishController {
     }
 
     @PostMapping("/publish")
-    public String doPublish(
+    public String doPublishAop(
             @RequestParam(value = "title",required = false) String title,
             @RequestParam(value = "description",required = false) String description,
             @RequestParam(value = "tag",required = false) String tag,
             HttpServletRequest request,
             Model model
     ){
+        System.out.println("我在doPublishAop");
         model.addAttribute("titile",title);
         model.addAttribute("description",description);
         model.addAttribute("tag",tag);
@@ -52,21 +53,8 @@ public class PublishController {
         }
 
 
-        User user = null;
-        Cookie[] cookies = request.getCookies();
-        if(cookies != null && cookies.length != 0) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
-                    }
-                    System.out.println(user.toString());
-                    break;
-                }
-            }
-        }
+        User user = (User) request.getSession().getAttribute("user");
+
         if (user == null){
             model.addAttribute("error","用户未登录");
             return "publish";

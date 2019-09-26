@@ -21,12 +21,13 @@ public class ProfileController {
     @Autowired
     private QuestionService questionService;
     @GetMapping("/profile/{action}")
-    public String prifile(HttpServletRequest request,
+    public String prifileAop(HttpServletRequest request,
                           @PathVariable(name = "action")String action,
                           @RequestParam(value = "page",defaultValue = "1")Integer page,
-                          @RequestParam(value = "size",defaultValue = "1")Integer size,
+                          @RequestParam(value = "size",defaultValue = "7")Integer size,
                           Model model){
-        User user = null;
+        System.out.println("我在prifileAop");
+        User user = (User) request.getSession().getAttribute("user");
         Cookie[] cookies = request.getCookies();
         if(cookies != null && cookies.length != 0) {
             for (Cookie cookie : cookies) {

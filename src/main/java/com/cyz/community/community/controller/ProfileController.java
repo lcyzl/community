@@ -3,6 +3,7 @@ package com.cyz.community.community.controller;
 import com.cyz.community.community.dto.PaginationDTO;
 import com.cyz.community.community.mapper.UserMapper;
 import com.cyz.community.community.model.User;
+import com.cyz.community.community.model.UserExample;
 import com.cyz.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,12 @@ public class ProfileController {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
-                    user = userMapper.findByToken(token);
+                    UserExample example = new UserExample();
+                    example.createCriteria().andTokenEqualTo(token);
+
+                    user = (User) userMapper.selectByExample(example);
+//                            userMapper.findByToken(token);
+
                     if (user != null) {
                         request.getSession().setAttribute("user", user);
                     }
@@ -51,7 +57,6 @@ public class ProfileController {
             model.addAttribute("section","repies");
             model.addAttribute("sectionName","最新回复");
         }
-
         PaginationDTO paginationDTO = questionService.listByUserId(user.getId(),page,size);
 
         model.addAttribute("pagination",paginationDTO);

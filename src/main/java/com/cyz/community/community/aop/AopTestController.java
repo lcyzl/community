@@ -2,6 +2,7 @@ package com.cyz.community.community.aop;
 
 import com.cyz.community.community.mapper.UserMapper;
 import com.cyz.community.community.model.User;
+import com.cyz.community.community.model.UserExample;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -16,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
+import java.util.List;
 
 @Aspect
 @Component
@@ -43,9 +45,12 @@ public class AopTestController {
             for (Cookie cookie : cookies) {
                 if (cookie.getName().equals("token")) {
                     String token = cookie.getValue();
-                    User user = userMapper.findByToken(token);
-                    if (user != null) {
-                        request.getSession().setAttribute("user", user);
+//                    User user = userMapper.findByToken(token);
+                    UserExample example = new UserExample();
+                    example.createCriteria().andTokenEqualTo(token);
+                    List<User> users =  userMapper.selectByExample(example);
+                    if (users.size() != 0) {
+                        request.getSession().setAttribute("user", users.get(0));
                     }
                     break;
                 }

@@ -68,8 +68,10 @@ public class AuthorizeController {
 
         request.removeAttribute("user");
         Cookie cookie =new Cookie("token",null);
+        Cookie cookie1 =new Cookie("JSESSIONID",null);
         cookie.setMaxAge(0);
         response.addCookie(cookie);
+        response.addCookie(cookie1);
         return "redirect:/";
     }
 }

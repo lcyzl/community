@@ -17,4 +17,3 @@ Ctrl+Alt+T，可以把代码包在一个块内，例如：try/catch
 Ctrl+Alt+L，格式化代码
 Alt+Up/Down，在方法间快速移动定位
 Alt+Shift+Up/Down，上/下移一行
-hahahaha

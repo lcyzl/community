@@ -2,7 +2,6 @@ package com.cyz.community.community.controller;
 
 import com.cyz.community.community.dto.AccessTokenDTO;
 import com.cyz.community.community.dto.GithubUser;
-import com.cyz.community.community.mapper.UserMapper;
 import com.cyz.community.community.model.User;
 import com.cyz.community.community.provider.GitHubProvider;
 import com.cyz.community.community.service.UserService;

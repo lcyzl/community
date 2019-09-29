@@ -31,7 +31,7 @@ public class UserService {
             dbUser.setToken(user.getToken());
             UserExample example = new UserExample();
             example.createCriteria().andIdEqualTo(dbUser.getId());
-            userMapper.updateByExampleSelective(updateUser,example);
+            userMapper.updateByExampleSelective(dbUser,example);
         }
     }
 }

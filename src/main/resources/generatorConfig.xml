@@ -23,7 +23,7 @@
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
         <!-- 生成映射文件的包名和位置-->
-        <sqlMapGenerator targetPackage="mapping" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置-->
@@ -34,5 +34,6 @@
         <!--<table tableName="user" domainObjectName="User" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>-->
         <table tableName="user" domainObjectName="User"></table>
         <table tableName="question" domainObjectName="Question"></table>
+        <table tableName="comment" domainObjectName="Comment"></table>
     </context>
 </generatorConfiguration>

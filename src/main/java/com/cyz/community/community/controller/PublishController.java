@@ -1,8 +1,6 @@
 package com.cyz.community.community.controller;
 
 import com.cyz.community.community.dto.QuestionDTO;
-import com.cyz.community.community.mapper.QuestionMapper;
-import com.cyz.community.community.mapper.UserMapper;
 import com.cyz.community.community.model.Question;
 import com.cyz.community.community.model.User;
 import com.cyz.community.community.service.QuestionService;

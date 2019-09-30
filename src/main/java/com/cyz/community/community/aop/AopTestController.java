@@ -33,8 +33,10 @@ public class AopTestController {
     @Pointcut(value = "execution(public String *Aop (..))")
     public void cutOffPoint() {
     }
-
-    @Before("cutOffPoint()")
+    @Pointcut(value = "execution(public Object *Aop (..))")
+    public void cutOffPoint1() {
+    }
+    @Before("cutOffPoint() || cutOffPoint1()")
     public void beforeTest(JoinPoint joinPoint){
         // 接收到请求，记录请求内容
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();

@@ -1,11 +1,12 @@
 package com.cyz.community.community.controller;
 
-import com.cyz.community.community.dto.CommentDTO;
+import com.cyz.community.community.dto.CommentCreateDTO;
 import com.cyz.community.community.dto.ResultDTO;
 import com.cyz.community.community.exception.CustomizeErrorCode;
 import com.cyz.community.community.model.Comment;
 import com.cyz.community.community.model.User;
 import com.cyz.community.community.service.CommentService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +22,16 @@ public class CommentController {
     private CommentService commentService;
     @ResponseBody
     @RequestMapping(value = "/comment",method = RequestMethod.POST)
-    public Object postAop(@RequestBody CommentDTO commentDTO,
+    public Object postAop(@RequestBody CommentCreateDTO commentDTO,
                        HttpServletRequest request){
         User user = (User) request.getSession().getAttribute("user");
         System.out.println(user);
         if (user == null){
             return ResultDTO.errorOf(CustomizeErrorCode.NO_LOGIN);
+        }
+        if(commentDTO == null || StringUtils.isBlank(commentDTO.getContent())){
+            return ResultDTO.errorOf(CustomizeErrorCode.COMTENT_IS_EMPTY);
+
         }
         Comment comment = new Comment();
         comment.setParentId(commentDTO.getParentId());

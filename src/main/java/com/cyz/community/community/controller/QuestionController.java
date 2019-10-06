@@ -1,8 +1,8 @@
 package com.cyz.community.community.controller;
 
-import com.cyz.community.community.dto.CommentCreateDTO;
 import com.cyz.community.community.dto.CommentDTO;
 import com.cyz.community.community.dto.QuestionDTO;
+import com.cyz.community.community.enums.CommentTypeEnum;
 import com.cyz.community.community.service.CommentService;
 import com.cyz.community.community.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class QuestionController {
                            Model model){
         QuestionDTO questionDTO = questionService.getById(id);
 
-        List<CommentDTO> comments = commentService.listByQuestionId(id);
+        List<CommentDTO> comments = commentService.listByTargetId(id, CommentTypeEnum.QUESTION);
         //累加阅读数
         questionService.incView(id);
         model.addAttribute("question",questionDTO);

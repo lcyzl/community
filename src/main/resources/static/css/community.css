@@ -68,7 +68,9 @@ body {
 .comment-sp {
     margin-top: 0;
 }
-
+.count-comment{
+    vertical-align: text-bottom;
+}
 .menu {
     color: #999;
     margin-top: 5px;
